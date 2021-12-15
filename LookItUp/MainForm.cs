@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using LookItUp.Properties;
 using Lucene.Net.Store;
 using Directory = System.IO.Directory;
-using Version = Lucene.Net.Util.Version;
 
 namespace LookItUp
 {
@@ -182,7 +181,9 @@ namespace LookItUp
             indexManager.BuildIndex(itemList);
 
             sw.Stop();
-            lblFileCount.Text = $"{itemList.Count} found for {sw.Elapsed.FormatTimeSpan()} seconds";
+            string msg = $"{itemList.Count} files added to index for {sw.Elapsed.ToLongReadable()}";
+            lblFileCount.Text = msg;
+            MessageBox.Show(msg, "Index built", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         

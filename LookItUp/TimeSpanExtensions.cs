@@ -31,8 +31,6 @@ namespace LookItUp
         {
             string output = string.Join(" ", span.GetLongStringElements()
                 .Where(str => !string.IsNullOrWhiteSpace(str)));
-
-            //Debug.WriteLine($"{span} {output}");
             return output;
         }
 
@@ -48,8 +46,6 @@ namespace LookItUp
         {
             string output = string.Join(" ", span.GetShortStringElements()
                 .Where(str => !string.IsNullOrWhiteSpace(str)));
-
-            //Debug.WriteLine($"{span} {output}");
             return output;
         }
 
@@ -58,7 +54,6 @@ namespace LookItUp
             int numHours = (int)Math.Floor(span.TotalDays) * 24 + span.Hours;
             yield return FormatDatePart(numHours, hours);
             yield return FormatDatePart(span.Minutes, minutes);
-            //yield return GetSecondsString(span.Seconds);
         }
 
         public static string ToFullReadable(this TimeSpan span)
