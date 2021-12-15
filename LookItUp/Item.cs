@@ -24,12 +24,5 @@ namespace LookItUp
             document.Add(new Field("line", Line, Field.Store.YES, Field.Index.ANALYZED));
             return document;
         }
-
-        //public Item(string fias, string alias, string name)
-        //{
-        //    Fias = fias;
-        //    Alias = alias;
-        //    Name = name;
-        //}
     }
 }
