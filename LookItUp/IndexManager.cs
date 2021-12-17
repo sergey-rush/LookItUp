@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
@@ -42,6 +41,7 @@ namespace LookItUp
 
             try
             {
+
                 string indexFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Index");
                 indexPath = new MMapDirectory(new DirectoryInfo(indexFolder));
 

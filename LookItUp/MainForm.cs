@@ -26,16 +26,21 @@ namespace LookItUp
             ThreadPool.QueueUserWorkItem(StartSplash, splashForm);
             InitializeComponent();
             indexManager = IndexManager.Current;
-            WindowState = FormWindowState.Minimized;
-            txbSourcePath.Text = Settings.Default.SourcePath;
-            txbExtension.Text = Settings.Default.SearchPattern;
-            string indexFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Index");
-            indexPath = new MMapDirectory(new DirectoryInfo(indexFolder));
-            InitIndex();
+        
             splashForm.BeginInvoke(new Action(() => splashForm.Close()));
+            WindowState = FormWindowState.Minimized;
             Show();
             WindowState = FormWindowState.Normal;
             txbQuery.Focus();
+
+            txbSourcePath.Text = Settings.Default.SourcePath;
+            txbExtension.Text = Settings.Default.SearchPattern;
+
+            string indexFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Index");
+
+            indexPath = new MMapDirectory(new DirectoryInfo(indexFolder));
+
+            InitIndex();
         }
 
         private void StartSplash(object state)
@@ -103,8 +108,6 @@ namespace LookItUp
                     }
 
                     resultItems = results;
-
-                    Display(results);
                 }
 
                 Display(results);
