@@ -38,6 +38,7 @@ namespace LookItUp
             this.lblItemCount = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.listViewResult = new System.Windows.Forms.ListView();
+            this.columnHeaderNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderLine = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewcontextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -55,11 +56,13 @@ namespace LookItUp
             this.btnBuildIndex = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txbSourcePath = new System.Windows.Forms.TextBox();
-            this.columnHeaderNum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.itemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewcontextMenu.SuspendLayout();
             this.tblMain.SuspendLayout();
             this.tabSearch.SuspendLayout();
             this.tabIndex.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
@@ -147,6 +150,11 @@ namespace LookItUp
             this.listViewResult.SelectedIndexChanged += new System.EventHandler(this.listViewResult_SelectedIndexChanged);
             this.listViewResult.DoubleClick += new System.EventHandler(this.listViewResult_DoubleClick);
             // 
+            // columnHeaderNum
+            // 
+            this.columnHeaderNum.Text = "#";
+            this.columnHeaderNum.Width = 40;
+            // 
             // columnHeaderLine
             // 
             this.columnHeaderLine.Text = "Line";
@@ -160,17 +168,19 @@ namespace LookItUp
             // listViewcontextMenu
             // 
             this.listViewcontextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.copyToolStripMenuItem});
             this.listViewcontextMenu.Name = "listViewcontextMenu";
-            this.listViewcontextMenu.Size = new System.Drawing.Size(104, 26);
+            this.listViewcontextMenu.Size = new System.Drawing.Size(181, 70);
             this.listViewcontextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.listViewcontextMenu_ItemClicked);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.ShortcutKeyDisplayString = "";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem1.Text = "Open";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // tblMain
             // 
@@ -313,10 +323,12 @@ namespace LookItUp
             this.txbSourcePath.Size = new System.Drawing.Size(698, 20);
             this.txbSourcePath.TabIndex = 0;
             // 
-            // columnHeaderNum
+            // copyToolStripMenuItem
             // 
-            this.columnHeaderNum.Text = "#";
-            this.columnHeaderNum.Width = 40;
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // MainForm
             // 
@@ -336,6 +348,7 @@ namespace LookItUp
             this.tabSearch.PerformLayout();
             this.tabIndex.ResumeLayout(false);
             this.tabIndex.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -366,6 +379,8 @@ namespace LookItUp
         private System.Windows.Forms.Label lblFileCount;
         private System.Windows.Forms.CheckBox chbSearchMode;
         private System.Windows.Forms.ColumnHeader columnHeaderNum;
+        private System.Windows.Forms.BindingSource itemBindingSource;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
     }
 }
 

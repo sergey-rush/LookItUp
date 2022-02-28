@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -141,26 +142,6 @@ namespace LookItUp
 
         private void listViewcontextMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            string сlickedItemText = e.ClickedItem.Text;
-            ListView.SelectedListViewItemCollection col = listViewResult.SelectedItems;
-            if (col.Count == 0)
-            {
-                return;
-            }
-
-            var selectedItem = col[0].SubItems[2];
-            Item item = results.FirstOrDefault(x => x.Path == selectedItem.Text);
-            if (item != null && !string.IsNullOrEmpty(item.Path))
-            {
-                Debug.WriteLine(item.Path);
-                new Process
-                {
-                    StartInfo = new ProcessStartInfo(item.Path)
-                    {
-                        UseShellExecute = true
-                    }
-                }.Start();
-            }
         }
 
         private void btnBuildIndex_Click(object sender, EventArgs e)
@@ -180,11 +161,18 @@ namespace LookItUp
 
             sw.Stop();
             string msg = $"{itemList.Count} files added to index for {sw.Elapsed.ToLongReadable()}";
-            lblFileCount.Text = msg;
+            //lblFileCount.Text = msg;
             MessageBox.Show(msg, "Index built", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
 
-        
+            //var bindingList = new BindingList<Item>(itemList);
+            //var source = new BindingSource(bindingList, null);
+
+            itemList = itemList.OrderByDescending(x => x.Size).ToList();
+
+            itemBindingSource.DataSource = itemList;
+
+            //gdvFiles.DataSource = source;
+        }
         
         private void EnlistFiles(string dirPath)
         {
@@ -201,6 +189,7 @@ namespace LookItUp
                         item.FileInfo = fileInfo;
                         item.Lines = File.ReadAllLines(fileInfo.FullName);
                         item.FileName = fileInfo.Name;
+                        item.Size = fileInfo.Length;
                         itemList.Add(item);
                     }
                     EnlistFiles(d);
@@ -214,7 +203,15 @@ namespace LookItUp
 
         private void listViewResult_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            ListView.SelectedListViewItemCollection col = listViewResult.SelectedItems;
+
+            if (col.Count == 0)
+            {
+                return;
+            }
+
+            var text = col[0].SubItems[1];
+            Clipboard.SetText(text.Text);
         }
 
         private void tblMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -252,6 +249,43 @@ namespace LookItUp
                     }
                 }.Start();
             }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //string сlickedItemText = e.ClickedItem.Text;
+            ListView.SelectedListViewItemCollection col = listViewResult.SelectedItems;
+            if (col.Count == 0)
+            {
+                return;
+            }
+
+            var selectedItem = col[0].SubItems[2];
+            Item item = results.FirstOrDefault(x => x.Path == selectedItem.Text);
+            if (item != null && !string.IsNullOrEmpty(item.Path))
+            {
+                Debug.WriteLine(item.Path);
+                new Process
+                {
+                    StartInfo = new ProcessStartInfo(item.Path)
+                    {
+                        UseShellExecute = true
+                    }
+                }.Start();
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection col = listViewResult.SelectedItems;
+
+            if (col.Count == 0)
+            {
+                return;
+            }
+
+            var text = col[0].SubItems[1];
+            Clipboard.SetText(text.Text);
         }
     }
 }

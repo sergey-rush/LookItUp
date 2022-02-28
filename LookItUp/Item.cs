@@ -13,6 +13,8 @@ namespace LookItUp
         public string Path { get; set; }
         public string Num { get; set; }
 
+        public long Size { get; set; }
+
         public Document GetDocument(int num, string line)
         {
             Num = (num+1).ToString();
